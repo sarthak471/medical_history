@@ -1,0 +1,96 @@
+{% extends 'userprofile/base.html' %}
+{% load static %}
+
+{% block content %}
+.
+<div class="container-fluid outercontainer" style=" margin: 2px solid red;">
+ <div class="col-md-9">
+
+     <div style=" border: 2px solid red;" >
+        <nav aria-label="breadcrumb" >
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'profile' %}">Profile</a></li>
+                <li class="breadcrumb-item"><a href="#">EditProfile</a></li>
+            </ol>
+        </nav>
+    </div>
+</div>
+</div>
+  <div class="container-fluid outercontainer" style=" margin: 2px solid red;">
+    <h1>This is edit profile page</h1>  
+  </div>
+  <div class="container-fluid outercontainer" style=" margin: 2px solid red;">
+    <h4>Genral Infomation</h4>  
+  </div>
+
+  <div class="container-fluid formcontainer">
+    <form action="{% url 'editprofile' %}" method="post" >
+        {% csrf_token %}
+ 
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">First Name</label>
+          <input type="text" 
+                name="firstname"
+                placeholder="firstname"
+                value="{{user_detail_list.firstname}}"              
+                class="form-control" 
+                id="firstname">   
+        </div>
+        <div>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Last Name</label>
+          <input type="text" 
+          name="lastname"
+          placeholder="lastname"
+          value="{{user_detail_list.firstname}}"              
+          class="form-control" 
+          id="firstname">   
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">address</label>
+            <input type="text" 
+            name="address"
+            placeholder="address"
+            value="{{user_detail_list.address}}"              
+            class="form-control" 
+            id="firstname">   
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Date of birth</label>
+            <input type="date" 
+            name="dob"
+            placeholder="date of birth"
+            value="{{user_detail_list.dob}}"              
+            class="form-control" 
+            id="firstname">   
+          </div>
+          {{user_detail_list.dob.}}
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">phone no</label>
+            <input type="text" 
+            name="phoneno"
+            placeholder="phoneno"
+            value="{{user_detail_list.phoneno}}"              
+            class="form-control" 
+            id="firstname">   
+          </div>
+          <div class="mb-3">
+            <label for="formFileMultiple" class="form-label">Upload image</label>
+            <input type="file" 
+            name="uploadimage"
+            placeholder="uploadimage"
+            value="{{fieldValues.uploadimage}}"              
+            class="form-control" 
+            id="uploadimage"
+            multiple
+            >   
+          </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+  </div>
+  <link href="{% static 'css/userprofile/editprofile.css' %}" rel="stylesheet">
+  <script src="{% static 'js/userprofile/editprofile.js' %}"></script>
+
+  {% endblock content %}
+       

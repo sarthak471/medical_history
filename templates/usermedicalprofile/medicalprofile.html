@@ -1,0 +1,124 @@
+{% extends 'usermedicalprofile/base.html' %}
+{% load static %}
+{% block uppernav %}
+<div class="container-fluid outercontainer" style=" margin: 2px solid red;">
+  <div class="col-md-5">
+
+    <div style=" border: 2px solid red;">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'usermedicaldashbaord' %}">Medical history </a></li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+  <div class="col-md-3">
+
+    <a href="{% url 'addmedicalcondition' %}" class="btn btn-primary">
+      add medical condition
+    </a>
+  </div>
+
+  <form action="{% url 'usermedicaldashbaord' %}" method="GET">
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Search</label>
+
+      {% if searchvalue != "None" %}
+      <input type="test" value={{searchvalue}} placeholder="enter something" name="searchvalue" class="form-control"
+        id="exampleInputEmail1" aria-describedby="emailHelp">
+      {% else %}
+      <input type="test" placeholder="enter something" name="searchvalue" class="form-control" id="exampleInputEmail1"
+        aria-describedby="emailHelp">
+      {% endif %}
+    </div>
+    <div class="mb-3">
+      <label class="form-label">start</label>
+      <input type="date" name="start" placeholder="date of visit" value="{{start}}" class="form-control"
+        id="firstname">
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">end</label>
+      <input type="date" name="end" placeholder="date of visit" value="{{end}}" class="form-control"
+        id="firstname">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  
+  <a href="{% url 'usermedicaldashbaord' %}" class="btn btn-primary">Clear </a>
+</div>
+{% endblock uppernav %}
+
+
+
+{% block bodybox %}
+
+
+
+<div class="container-fluid outercontainer">
+  <h1>This is the medical dashbaord page</h1>
+</div>
+<div class="container-fluid outercontainer">
+  <table>
+    <tr>
+      <th>disease_name</th>
+      <th>medical_condition.id</th>
+      <th>date_of_start</th>
+      <th>symptoms</th>
+      <th>body_part_effected</th>
+      <th>user_id</th>
+      <th>Edit</th>
+      <th>view</th>
+    </tr>
+  </table>
+  {% for medical_condition in medical_condition_list %}
+  <tr>
+    <td>{{medical_condition.disease_name}}</td>
+    <td>{{medical_condition.id}}</td>
+    <td>{{medical_condition.date_of_start}}</td>
+    <td>{{medical_condition.symptoms}}</td>
+    <td>{{medical_condition.body_part_effected}}</td>
+    <td>{{medical_condition.user_id}}</td>
+    <td>
+      <a href="{% url 'editmedicalcondition' medical_condition.id %}" class="btn btn-primary">
+        
+        edit
+      </a>
+
+    </td>
+    <td>
+
+      <a href="{% url 'viewallmedicalreport' medical_condition.id medical_condition.disease_name|default:'None'  %}"
+      class="btn btn-primary">
+      report
+    </a>
+
+    </td>
+    
+</tr>
+<div>==================================</div>
+  {% endfor %}
+  <div class="pagination">
+    <span class="step-links">
+      {% if medical_condition_list.has_previous %}
+      <a href="{{url}}page=1">&laquo; first</a>
+      <a href="{{url}}page={{ medical_condition_list.previous_page_number }}">previous</a>
+      {% endif %}
+
+      <span class="current">
+        Page {{ medical_condition_list.number }} of {{ medical_condition_list.paginator.num_pages }}.
+      </span>
+
+      {% if medical_condition_list.has_next %}
+      <a href="{{url}}page={{ medical_condition_list.next_page_number }}">next</a>
+      <a href="{{url}}page={{ medical_condition_list.paginator.num_pages }}">last &raquo;</a>
+      {% endif %}
+    </span>
+  </div>
+</div>
+
+
+<link href="{% static 'css/dashboard/dashbaord.css' %}" rel="stylesheet">
+<!-- <script src="{% static 'js/dashboard/dashboard.js' %}"></script> -->
+
+
+{% endblock bodybox %}

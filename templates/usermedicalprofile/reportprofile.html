@@ -1,0 +1,103 @@
+{% extends 'usermedicalprofile/base.html' %}
+{% load static %}
+{% block uppernav %}
+<div class="container-fluid outercontainer" style=" margin: 2px solid red;">
+    <div class="col-md-5">
+   
+        <div style=" border: 2px solid red;" >
+           <nav aria-label="breadcrumb" >
+               <ol class="breadcrumb">
+                   <li class="breadcrumb-item"><a href="{% url 'usermedicaldashbaord' %}">Medical history </a></li>
+                   <li class="breadcrumb-item"><a href="{% url 'usermedicaldashbaord' %}">View all report --- {{medicalcondtionname}}</a></li>
+               </ol>
+           </nav>
+       </div>
+   </div>
+   <div class="col-md-3">    
+   {{medicalconditionid}}
+   {{medicalcondtionname}}
+      <a href="{% url 'addmedicalreport' medicalconditionid medicalcondtionname %}" class="btn btn-primary">
+        Add report
+      </a>
+   </div>
+   <form action="{% url 'viewallmedicalreport' medicalconditionid medicalcondtionname %}">
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">search</label>
+      <input type="text" name="searchvalue" placeholder="symptoms" value="{{user_detail_list.address}}"
+        class="form-control" id="firstname">
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">start</label>
+      <input type="date" name="start" placeholder="date of visit" value="{{user_detail_list.dob}}" class="form-control"
+        id="firstname">
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">end</label>
+      <input type="date" name="end" placeholder="date of visit" value="{{user_detail_list.dob}}" class="form-control"
+        id="firstname">
+    </div>
+
+   <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+
+{% endblock uppernav %}
+
+
+
+{% block bodybox %}
+      
+
+
+  <div class="container-fluid outercontainer">
+    <h1>This is the View all report page page</h1>  
+  </div>
+  
+  <div class="container-fluid outercontainer">
+    {% for reports in report_list %}
+    <div>{{reports.id}}</div>
+    <div>{{reports.keyword}}</div>
+    <div>{{reports.doctors_name}}</div>
+    <div>{{reports.hospital_address}}</div>
+    <div>{{reports.hospital_name}}</div>    
+    <div>{{reports.hospital_phoneno}}</div>
+    <div>{{reports.doctors_phoneno}}</div>
+    <div>{{reports.doctors_option}}</div>
+    <div>{{reports.symptoms}}</div>
+    <div>{{reports.date_of_visit}}</div>
+    <div>{{reports.prescription_img}}</div>
+    <a href="{% url 'editmedicalreport' medicalconditionid medicalcondtionname reports.id%}" class="btn btn-primary">
+      
+      edit report 
+    </a>
+    <a href="{% url 'viewmedicalreport' reports.id medicalcondtionname %}" class="btn btn-primary">
+      view report
+    </a>
+    <div>==================================</div> 
+    {% endfor %}
+    <div class="pagination">
+      <span class="step-links">
+          {% if report_list.has_previous %}
+              <a href="?page=1">&laquo; first</a>
+              <a href="?page={{ report_list.previous_page_number }}">previous</a>
+          {% endif %}
+  
+          <span class="current">
+              Page {{ report_list.number }} of {{ report_list.paginator.num_pages }}.
+          </span>
+  
+          {% if report_list.has_next %}
+              <a href="?page={{ report_list.next_page_number }}">next</a>
+              <a href="?page={{ report_list.paginator.num_pages }}">last &raquo;</a>
+          {% endif %}
+      </span>
+  </div>
+  </div>
+
+
+  <link href="{% static 'css/dashboard/dashbaord.css' %}" rel="stylesheet">
+  <!-- <script src="{% static 'js/dashboard/dashboard.js' %}"></script> -->
+
+       
+  {% endblock bodybox %}

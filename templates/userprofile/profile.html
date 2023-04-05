@@ -1,0 +1,31 @@
+{% extends 'userprofile/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid outercontainer" style=" margin: 2px solid red;">
+    <div class="col-md-5">
+   
+        <div style=" border: 2px solid red;" >
+           <nav aria-label="breadcrumb" >
+               <ol class="breadcrumb">
+                   <li class="breadcrumb-item"><a href="#">Profile</a></li>
+               </ol>
+           </nav>
+       </div>
+   </div>
+   <div class="col-md-3">
+      <a href="{% url 'editprofile' %}">
+        Edit profile
+      </a>
+   </div>
+</div>
+
+  <div class="container-fluid outercontainer">
+    <h1>This is the pdddddddddddrofmmile page</h1>  
+  </div>
+
+  <link href="{% static 'css/dashboard/dashbaord.css' %}" rel="stylesheet">
+  <!-- <script src="{% static 'js/dashboard/dashboard.js' %}"></script> -->
+  {% endblock content %}
+       

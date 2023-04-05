@@ -1,0 +1,136 @@
+{% extends 'usermedicalprofile/base.html' %}
+{% load static %}
+
+{% block uppernav %}
+
+<div class="container-fluid outercontainer" style=" margin: 2px solid red;">
+    <div class="col-md-5">
+   
+      <div style=" border: 2px solid red;" >
+        <nav aria-label="breadcrumb" >
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'usermedicaldashbaord' %}">Medical history </a></li>
+            <li class="breadcrumb-item"><a href=""> medical condition -- {{medical_condition_name}}</a></li>
+            <li class="breadcrumb-item"><a href=""> report -- {{keyword}}</a></li>                
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <div class="col-md-3">       
+        <a href="{% url 'deletereport' report_obj.id medical_condition_name%}" class="btn btn-primary">
+          delete report
+        </a>
+     </div>
+  </div>
+
+  {% endblock uppernav %}
+
+  {% block bodybox %}
+  <div class="container-fluid outercontainer" >
+    <h1>This is the EDIT report page</h1>  
+  </div>
+  <div class="container-fluid"  style=" border: 2px solid red; margin-top: 10px;">
+    <form action="{% url 'editmedicalreport' report_obj.medical_condition_id_id medical_condition_name report_id%}" method="post" >
+      {% csrf_token %}
+      
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Doctors Name</label>
+        <input type="text" 
+                name="doctor_name"
+                placeholder="doctor name"
+                value="{{report_obj.doctors_name}}"              
+                class="form-control" 
+                id="firstname">   
+              </div>
+              <div>
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Hospital/ clinic name</label>
+                <input type="text" 
+                name="hospital_name"
+                placeholder="hospital / Clinic name"
+                value="{{report_obj.hospital_name}}"              
+                class="form-control" 
+                id="firstname">   
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">hospital phoneno</label>
+                <input type="number" 
+                name="hospital_phoneno"
+                placeholder="hospita phoneno"
+                value="{{report_obj.hospital_phoneno}}"              
+                class="form-control" 
+                id="firstname">   
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">doctors phoneno</label>
+                <input type="number" 
+                name="doctors_phoneno"
+                placeholder="doctors phoneno"
+                value="{{report_obj.doctors_phoneno}}"              
+                class="form-control" 
+                id="firstname">   
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">hospital address</label>
+                <input type="text" 
+                name="hospital_address"
+                placeholder="hospital address"
+                value="{{report_obj.hospital_address}}"              
+                class="form-control" 
+                id="firstname">   
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">doctors opinion</label>
+                <input type="text" 
+                name="doctors_opinion"
+                placeholder="doctors opinion"
+                value="{{report_obj.doctors_opinion}}"              
+                class="form-control" 
+                id="firstname">   
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">keyword</label>
+                <input type="text" 
+                name="keyword"
+                placeholder="keyword"
+                value="{{report_obj.keyword}}"              
+                class="form-control" 
+                id="firstname">   
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">symptoms</label>
+                <input type="text" 
+                name="symptoms"
+                placeholder="symptoms"
+                value="{{report_obj.symptoms}}"              
+                class="form-control" 
+                id="firstname">   
+              </div>  
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Date of visit</label>
+            <input type="date" 
+            name="dob"
+            placeholder="date of visit"
+            value="{{date_of_visit}}"              
+            class="form-control" 
+            id="firstname">   
+          </div>
+          <div class="mb-3">
+            <label for="formFileMultiple" class="form-label">Upload prescription report</label>
+            <input type="file" 
+            name="uploadimage"
+            placeholder="uploadimage"
+            value="{{report_obj.uploadimage}}"              
+            class="form-control" 
+            id="uploadimage"
+            multiple
+            >    
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+          
+          <link href="{% static 'css/dashboard/dashbaord.css' %}" rel="stylesheet">
+          <!-- <script src="{% static 'js/dashboard/dashboard.js' %}"></script> -->
+          {% endblock bodybox %}
+          

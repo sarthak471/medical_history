@@ -1,0 +1,51 @@
+{% extends 'usermedicalprofile/base.html' %}
+{% load static %}
+{% block uppernav %}
+<div class="container-fluid outercontainer" style=" margin: 2px solid red;">
+    <div class="col-md-5">
+   
+        <div style=" border: 2px solid red;" >
+           <nav aria-label="breadcrumb" >
+               <ol class="breadcrumb">
+                   <li class="breadcrumb-item"><a href="{% url 'usermedicaldashbaord' %}">Medical history </a></li>
+                   <li class="breadcrumb-item"><a href="{% url 'usermedicaldashbaord' %}">medical condidtion --- {{medical_condition_name}}</a></li>
+                   <li class="breadcrumb-item"><a href="">report --- {{report.keyword}}</a></li>
+               </ol>
+           </nav>
+       </div>
+   </div>
+</div>
+{% endblock uppernav %}
+
+
+
+{% block bodybox %}
+      
+
+
+  <div class="container-fluid outercontainer">
+    <h1>This is the View report  page</h1>  
+  </div>
+  
+  <div class="container-fluid outercontainer">
+    <div>{{report.id}}</div>
+    <div>{{report.keyword}}</div>
+    <div>{{report.doctors_name}}</div>
+    <div>{{report.hospital_address}}</div>
+    <div>{{report.hospital_name}}</div>
+    <div>{{report.hospital_phoneno}}</div>
+    <div>{{report.doctors_phoneno}}</div>
+    <div>{{report.doctors_option}}</div>
+    <div>{{report.symptoms}}</div>
+    <div>{{report.date_of_visit}}</div>
+    <div>{{report.prescription_img}}</div>
+    <div>==================================</div> 
+    <button>report pdf download</button>
+  </div>
+
+
+  <link href="{% static 'css/dashboard/dashbaord.css' %}" rel="stylesheet">
+  <!-- <script src="{% static 'js/dashboard/dashboard.js' %}"></script> -->
+
+       
+  {% endblock bodybox %}

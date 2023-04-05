@@ -1,0 +1,73 @@
+{% extends 'usermedicalprofile/base.html' %}
+{% load static %}
+{% block uppernav %}
+<div class="container-fluid outercontainer" style=" margin: 2px solid red;">
+    <div class="col-md-5">
+   
+        <div style=" border: 2px solid red;" >
+           <nav aria-label="breadcrumb" >
+               <ol class="breadcrumb">
+                   <li class="breadcrumb-item"><a href="{% url 'usermedicaldashbaord' %}">Medical history </a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'addmedicalcondition' %}">Edit medical condition -- {{medical_condtion_data.disease_name}}</a></li>
+               </ol>
+           </nav>
+       </div>
+   </div>
+   <a href="{% url 'deletemedicalcondition' medical_condtion_data.id %}" class="btn btn-primary">
+    delete
+  </a>
+</div>      
+{% endblock uppernav %}
+{% block bodybox %}
+
+<div class="container-fluid outercontainer">
+  <h1>This is Edit medical condidtion page</h1>  
+</div>
+<div class="container-fluid"  style=" border: 2px solid red; margin-top: 10px;">
+  <form action="" method="post" >
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Disease Name</label>
+      <input type="text" 
+      name="disease_name"
+      placeholder="Disease Name"
+      value="{{medical_condtion_data.disease_name}}"              
+      class="form-control" 
+                id="firstname">   
+              </div>
+              <div>
+              </div>
+              {{date}}ffffffffffffffffffffffffffff
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Date of start</label>
+                <input type="date" 
+                name="date_of_start"
+                value={{date}}     
+                class="form-control" 
+                id="firstname">   
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">symptoms</label>
+                <input type="text" 
+                name="symptoms"
+                placeholder="symptoms"
+                value="{{medical_condtion_data.symptoms}}"              
+                class="form-control" 
+                id="symptoms">   
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Body part affected</label>
+                <input type="text" 
+                name="body_part_effected"
+                placeholder="Body part affected"
+                value="{{medical_condtion_data.body_part_effected}}"              
+                class="form-control" 
+            id="firstname">   
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        
+        <link href="{% static 'css/dashboard/dashbaord.css' %}" rel="stylesheet">
+        <!-- <script src="{% static 'js/dashboard/dashboard.js' %}"></script> -->
+        {% endblock bodybox %}
+        

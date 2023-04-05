@@ -1,0 +1,14 @@
+.outercontainer {
+    color:blue;
+    border: 2px solid black;
+    margin-top: 10px;
+  }
+.formcontainer {
+    color:blue;
+    border: 2px solid red;
+    margin-top: 10px;
+  }
+
+  .input-group-append {
+    cursor: pointer;
+  }

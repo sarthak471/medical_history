@@ -1,0 +1,12 @@
+.fieldtitle {
+    margin-top: 10px;
+}
+.showPasswordToggle{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all;
+}
+/* .showPasswordToggle:hover{
+    transform: scale(1.2);
+} */

@@ -1,0 +1,36 @@
+{% extends 'authentication/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      <div class="card mt-5">
+        <div class="card-body">
+          <div class="card-title py-3">
+            <h4>Activation page</h4>
+          </div>
+          <div class="card-title py-3">
+            {% include 'components/messages.html' %}
+          </div>
+          <div class="card-title py-3">
+            asdfasdf{{activation_data.username}}
+          </div>
+          {% if data.back %}
+            <button class="loginbutton">back</button>
+          {% endif %}
+          {% if data.resend %}
+            <button class="loginbutton">resend</button>
+          {% endif %}
+          {% if data.home %}
+            <button class="loginbutton">home</button>
+          {% endif %}
+        </div>  
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+  <link href="{% static 'css/authentication/registor.css' %}" rel="stylesheet">
+  <script src="{% static 'js/authentication/registor.js' %}"></script>
+  {% endblock content %}

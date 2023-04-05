@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from user_medical_profile import views
 
 urlpatterns = [
+    path('',views.MedicalDashboardView,name = 'usermedicaldashbaord'),
     path('usermedicaldashbaord/',views.MedicalDashboardView,name = 'usermedicaldashbaord'),
     # path('addmedicalreport/',views.AddReportView,name = 'addmedicalreport_noparameter'),
     path('addmedicalreport/<int:medical_condition_id>/<str:medical_condition_name>',views.AddReportView,name = 'addmedicalreport'),

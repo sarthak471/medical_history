@@ -90,7 +90,7 @@ def MedicalDashboardView(request):
         print("filter ============= ",filter_obj)
 
         page_num = request.GET.get('page',1)
-        p = Paginator(filter_obj,  1)
+        p = Paginator(filter_obj,  3)
         try:
                 page = p.page(page_num)
         except EmptyPage:
@@ -176,7 +176,7 @@ def AddReportView(request,medical_condition_id ,medical_condition_name):
                 medical_condition_obj = MedicalCondition.objects.get(id = medical_condition_id)
                 print("med================= ",medical_condition_obj)
 
-                keyword = request.POST['keyword']
+                keyword = request.POST['keyword'] 
                 doctor_name = request.POST['doctor_name']
                 hospital_name = request.POST['hospital_name']
                 hospital_phoneno = request.POST['hospital_phoneno']
@@ -273,7 +273,7 @@ def ViewAllReportView(request,medical_condition_id,medical_condition_name):
 
 def DeleteMedicalCondtionView(request,medical_condition_id):
         print("i am in delete medical condition ")
-        instance = MedicalCondition.objects.get(id = medical_condition_id)
+        instance = MedicalCondition.objects.get(id = medical_condition_id)      
         instance.delete()
         messages.success(request,'Medical condittion deleted successfully')
         return redirect('usermedicaldashbaord')  

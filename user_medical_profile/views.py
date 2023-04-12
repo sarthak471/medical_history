@@ -59,48 +59,18 @@ from django.core.paginator import Paginator , EmptyPage
 def MedicalDashboardView(request):
         print("i am in medical dashboard")
         searchvalue =str(request.GET.get('searchvalue'))
-        searchvalue = "None" if searchvalue == "" else searchvalue
-        print("Search value == ",searchvalue)
-        start = str(request.GET.get('start'))
-        start = "None" if start ==  "" else start
-        end =  str(request.GET.get('end'))
-        end = "None" if end == "" else end
-        print("start == ",start,end)
-        if(start != "None" and end != "None" and searchvalue !="None" ):
-                url=f"?searchvalue={searchvalue}&start={start}&end={end}&"              
-                print("111111111111111111111111")
-                filter_obj =  MedicalCondition.objects.filter(user_id = request.user).filter(date_of_start__range=[start, end])
-                filter_obj = filter_obj.filter(disease_name__icontains=searchvalue).values() | filter_obj.filter(symptoms__icontains=searchvalue).values() | filter_obj.filter(body_part_effected__icontains=searchvalue).values()
-                filter_obj = filter_obj.distinct()
-        elif(start != "None" and end != "None" ):
-                url=f"?start={start}&end={end}&"
-                print("222222222222222222222222")
-                filter_obj =  MedicalCondition.objects.filter(user_id = request.user).filter(date_of_start__range=[start, end])
-        elif( searchvalue != "None"):
-                print("333333333333333333333")
-                url = f"?searchvalue={searchvalue}&"    
-                searchvalue = searchvalue
-                filter_obj = MedicalCondition.objects.filter(user_id = request.user).filter(disease_name__icontains=searchvalue).values() | MedicalCondition.objects.filter(symptoms__icontains=searchvalue).values() | MedicalCondition.objects.filter(body_part_effected__icontains=searchvalue).values()
-                filter_obj = filter_obj.distinct()
-        else:   
-                url="?"
-                print("4444444444444444444444")
-                filter_obj = MedicalCondition.objects.filter(user_id = request.user)
+        filter_obj = MedicalCondition.objects.filter(user_id = request.user)
 
         print("filter ============= ",filter_obj)
 
+        p = Paginator(filter_obj,  1)
         page_num = request.GET.get('page',1)
-        p = Paginator(filter_obj,  3)
         try:
                 page = p.page(page_num)
         except EmptyPage:
                 page = p.page(1)
         context = {
-                'medical_condition_list':page,
-                'searchvalue':searchvalue,
-                'url':url,
-                'start':start,
-                'end':end
+                'medical_condition_list':page
         }
         return render(request,'usermedicalprofile/medicalprofile.html',context)
 

@@ -20,40 +20,48 @@
   </div>
 
   <form action="{% url 'usermedicaldashbaord' %}" method="GET">
-    <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Search</label>
+    <label for="exampleInputPassword1" class="form-label">Date of start</label>
+    <input type="date" 
+    name="date_of_start"
+    value={{date}}     
+    class="form-control" 
+    id="firstname">   
+  <label for="exampleInputPassword1" class="form-label">Date of start</label>
+  <input type="date" 
+  name="date_of_start"
+  value={{date}}     
+  class="form-control" 
+  id="firstname">   
 
-      {% if searchvalue != "None" %}
-      <input type="test" value={{searchvalue}} placeholder="enter something" name="searchvalue" class="form-control"
-        id="exampleInputEmail1" aria-describedby="emailHelp">
-      {% else %}
-      <input type="test" placeholder="enter something" name="searchvalue" class="form-control" id="exampleInputEmail1"
-        aria-describedby="emailHelp">
-      {% endif %}
-    </div>
-    <div class="mb-3">
-      <label class="form-label">start</label>
-      <input type="date" name="start" placeholder="date of visit" value="{{start}}" class="form-control"
-        id="firstname">
-    </div>
-    <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">end</label>
-      <input type="date" name="end" placeholder="date of visit" value="{{end}}" class="form-control"
-        id="firstname">
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+
+
+<button type="submit" class="btn btn-primary">Submit</button>
   </form>
   
-  <a href="{% url 'usermedicaldashbaord' %}" class="btn btn-primary">Clear </a>
+
+
+
+  <form action="{% url 'usermedicaldashbaord' %}" method="GET">
+
+
+    <label for="exampleInputPassword1" class="form-label">search</label>
+    <input type="text" 
+    name="body_part_effected"
+    placeholder="Body part affected"
+    value=""              
+    class="form-control" 
+id="firstname">   
+<button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+
+
+
+
+
 </div>
 {% endblock uppernav %}
-
-
-
 {% block bodybox %}
-
-
-
 <div class="container-fluid outercontainer">
   <h1>This is the medical dashbaord page</h1>
 </div>

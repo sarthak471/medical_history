@@ -40,7 +40,7 @@ def editProfileView(request):
                                             'lastname':lastname,
                                             'dob': dob,
                                             'address':address,
-                                            'phoneno':phoneno,
+                                            'phoneno':phoneno
                                                 }
                 if user_obj:
                         user_obj.first_name = firstname
@@ -49,11 +49,14 @@ def editProfileView(request):
                         user_obj.address = address
                         user_obj.profile_img = None
                         user_obj.phone_number=phoneno
+                        if 'image' in request.FILES:
+                                user_obj.profile_img = request.FILES['uploadimage']
+                        print("=======================================",request.FILES['uploadimage'])
                         user_obj.save()
                         messages.success(request,'Your genral profile updated successfully'     )
                 else:
                         new_user_obj = UserGenralProfile.objects.create(user = request.user , 
-                                                         first_name = firstname , last_name= lastname,dob = dob,address=address,profile_img = None,phone_number = phoneno)
+                                                         first_name = firstname , last_name= lastname,dob = dob,address=address,profile_img = request.FILES['uploadimage'],phone_number = phoneno)
                 
                         new_user_obj.save()
                         messages.success(request,'Your genral profile created successfully')

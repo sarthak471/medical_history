@@ -34,7 +34,7 @@ class Report(models.Model):
 
     date_of_visit = models.DateField(default=now)
 
-    prescription_img = models.ImageField(upload_to='images/',null=True)
+    prescription_img = models.ImageField(null=True , blank=True) 
       
     def __str__(self):
         return f'{self.doctors_name}__'
@@ -50,10 +50,26 @@ class Medicine(models.Model):
     duration = models.IntegerField(blank=True, null=True)
     interval = models.IntegerField(blank=True, null=True)
 
-    medicine_img = models.ImageField(upload_to='images/',null=True)
+    medicine_img = models.ImageField(null=True)
    
     def __str__(self):
         return f'{self.name}__'
+
+class MedicineImages(models.Model):
+
+    medicine_id = models.ForeignKey(to=Medicine,on_delete=models.CASCADE)
+    medicine_img = models.ImageField(null=True)
+   
+    def __str__(self):
+        return f'{self.medicine_id}__'
+    
+class ReportImages(models.Model):
+
+    report_id = models.ForeignKey(to=Report,on_delete=models.CASCADE)
+    report_img = models.ImageField(null=True,blank=True,upload_to="newimages")
+   
+    def __str__(self):
+        return f'{self.report_id}__'
 
 
 

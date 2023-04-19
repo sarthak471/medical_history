@@ -28,9 +28,10 @@
   </div>
   
   <div class="container-fluid outercontainer">
+
     <div>{{report.id}}</div>
     <div>{{report.keyword}}</div>
-    <div>{{report.doctors_name}}</div>
+    <div>{{report.doctors_name}}</div>  
     <div>{{report.hospital_address}}</div>
     <div>{{report.hospital_name}}</div>
     <div>{{report.hospital_phoneno}}</div>
@@ -38,9 +39,20 @@
     <div>{{report.doctors_option}}</div>
     <div>{{report.symptoms}}</div>
     <div>{{report.date_of_visit}}</div>
-    <div>{{report.prescription_img}}</div>
+    jeyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
+    
+    {% if report_img_obj %}
+        {% for i in report_img_obj %}
+          <div> i </div>
+          <img src="{{report_img_obj.report_img.url}}" style="height: 10px;width: 20xp;" alt="not found">
+        {% endfor %}
+    {% else %}
+    <img src="{% static 'images/sample.png' %}" alt="fckkkkk" ></div>
+    {% endif %}
     <div>==================================</div> 
-    <button>report pdf download</button>
+   <a href="{% url 'genratereportpdf' report.id medical_condition_name %}" class="btn btn-primary">
+      report pdf download
+    </a>
   </div>
 
 

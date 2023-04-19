@@ -1,11 +1,14 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth.decorators import login_required
-from .models import MedicalCondition ,Report ,Medicine
+from .models import MedicalCondition ,Report ,Medicine ,ReportImages
 from django.contrib import messages
 import datetime
 from django.utils.timezone import now
 from django.core.paginator import Paginator , EmptyPage
+from helper.helper import html_to_pdf
+from django.http import HttpResponse
+
 
 
 # def MedicalDashboardView(request):
@@ -184,10 +187,9 @@ def AddReportView(request,medical_condition_id ,medical_condition_name):
                 hospital_address = request.POST['hospital_address']
                 doctors_opinion = request.POST['doctors_opinion']
                 symptoms = request.POST['symptoms']
-                date_of_visit = request.POST['dob']
-                prescription_img = request.POST['uploadimage']
+                date_of_visit = request.POST['dob']                                                      
 
-
+                print("value = =============== ",request.FILES )
                 print("doctor name = ",doctor_name)       
                 if(len(date_of_visit) == 0):
                         date_of_visit = datetime.datetime.today().strftime('%Y-%m-%d') 
@@ -202,9 +204,45 @@ def AddReportView(request,medical_condition_id ,medical_condition_name):
                                         doctors_phoneno = doctors_phoneno,
                                         doctors_option = doctors_opinion,
                                         symptoms = symptoms,            
-                                        date_of_visit = date_of_visit,
-                                        prescription_img = prescription_img)    
+                                        date_of_visit = date_of_visit)  
                 new_report_obj.save()
+
+                print("-------------------------------")
+                medname = request.POST.getlist('medname')
+                duration = request.POST.getlist('duration')
+                interval = request.POST.getlist('interval')
+                print(duration,interval,medname)
+
+                for i in range(0,len(medname)):
+                        if(medname[i] != "" and duration[i] != "" and interval[i] != "" ):
+                                new_med_obj = Medicine.objects.create(user_id = request.user.id 
+                                                                , medical_report_id_id = medical_condition_id ,
+                                                                        report_id_id = new_report_obj.id,
+                                                                        name = medname[i],
+                                                                        duration = duration[i] , 
+                                                                        interval = interval[i])
+                                new_med_obj.save()                        
+                print("----------------------------------")                
+                # prescription_img = request.FILES.getlist('uploadimage')
+                # print(prescription_img)
+                # for i in prescription_img:
+                #         print(" i = ",i)
+                
+
+                # for i in request.FILES.getlist['uploadimage']:
+                #         print(" i =========== ",i)
+
+
+                # print("the list is ======================== ",prescription_img)
+                
+                
+                
+                # if(len(prescription_img) != 0):
+                #         for i in prescription_img:
+                #                 new_report_image_obj = ReportImages.objects.create(report_id_id = new_report_obj.id,report_img = i)
+                #                 new_report_image_obj.save()
+
+                
                 messages.success(request,'Report successfully added')
                 return redirect('viewallmedicalreport', medical_condition_id=medical_condition_id,medical_condition_name=medical_condition_name)
 
@@ -257,10 +295,11 @@ def EditReportView(request,medical_condition_id,medical_condition_name,report_id
 def ViewAllReportView(request,medical_condition_id,medical_condition_name):
         print("i am in view all report ")
         report_list = Report.objects.filter(user_id = request.user ,medical_condition_id = medical_condition_id)
-        p = Paginator(report_list, 1)
+        p = Paginator(report_list, 3)
         page_num = request.GET.get('page',1)
         try:
                 page = p.page(page_num)
+                
         except EmptyPage:
                 page = p.page(1)
         context = {
@@ -290,12 +329,24 @@ def ViewReportView(request,report_id,medical_condition_name):
         print("i am in view all report ")
 
         report_obj = Report.objects.get(id= report_id)
+        report_img_obj = ReportImages.objects.filter(report_id_id= report_id)
+        print(report_img_obj)
         context = {
                 'report':report_obj,
-                'medical_condition_name':medical_condition_name
+                'medical_condition_name':medical_condition_name,
+                'report_img_obj':report_img_obj,
         }
         print(report_obj)
         return render(request,'usermedicalprofile/viewreport.html',context)
 
 
-
+def GenrateReportPdfView(request,report_id,medical_condition_name):
+        print("i am in genrate dpffffffffffffffffffffffffff ")
+        print(report_id)
+        report_obj = Report.objects.get(id= report_id)
+        context = {
+                'report':report_obj,
+                'medical_condition_name':medical_condition_name
+        }
+        pdf = html_to_pdf('usermedicalprofile/reportpdf.html',context)
+        return HttpResponse(pdf, content_type='application/pdf')

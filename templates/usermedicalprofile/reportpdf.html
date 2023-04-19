@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>
+        This is the report PDF
+    </h1>
+    <div class="container-fluid outercontainer">
+        <div>{{report.id}}</div>
+        <div>{{report.keyword}}</div>
+        <div>{{report.doctors_name}}</div>  
+        <div>{{report.hospital_address}}</div>
+        <div>{{report.hospital_name}}</div>
+        <div>{{report.hospital_phoneno}}</div>
+        <div>{{report.doctors_phoneno}}</div>
+        <div>{{report.doctors_option}}</div>
+        <div>{{report.symptoms}}</div>
+        <div>{{report.date_of_visit}}</div>
+        <img src="{{report.prescription_img.path}}" style="height: 10px;width: 20px;" alt="not found">
+    </div>
+</body>
+</html>

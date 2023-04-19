@@ -20,7 +20,7 @@
         Add report
       </a>
    </div>
-   <form action="{% url 'viewallmedicalreport' medicalconditionid medicalcondtionname %}">
+   <form action="{% url 'viewallmedicalreport' medicalconditionid medicalcondtionname %}" enctype="multipart/form-data"  >
     <div class="mb-3">
       <label for="exampleInputPassword1" class="form-label">search</label>
       <input type="text" name="searchvalue" placeholder="symptoms" value="{{user_detail_list.address}}"
@@ -53,29 +53,51 @@
   <div class="container-fluid outercontainer">
     <h1>This is the View all report page page</h1>  
   </div>
-  
+  <a href="" class="btn btn-primary">
+    download
+  </a>
   <div class="container-fluid outercontainer">
-    {% for reports in report_list %}
-    <div>{{reports.id}}</div>
-    <div>{{reports.keyword}}</div>
-    <div>{{reports.doctors_name}}</div>
-    <div>{{reports.hospital_address}}</div>
-    <div>{{reports.hospital_name}}</div>    
-    <div>{{reports.hospital_phoneno}}</div>
-    <div>{{reports.doctors_phoneno}}</div>
-    <div>{{reports.doctors_option}}</div>
-    <div>{{reports.symptoms}}</div>
-    <div>{{reports.date_of_visit}}</div>
-    <div>{{reports.prescription_img}}</div>
-    <a href="{% url 'editmedicalreport' medicalconditionid medicalcondtionname reports.id%}" class="btn btn-primary">
+    <table>
+      <tr>
+        <td> <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></td>
+        <th>id</th>
+        <th>keyword</th>
+        <th>doctors_name</th> 
+        <th>hospital_address</th>
+        <th>hospital_name</th>
+        <th>hospital_phoneno</th>
+        <th>doctors_phoneno</th>
+        <th>doctors_option</th>
+        <th>symptoms</th>
+        <th>symptoms</th>
+      </tr>
+
+        {% for reports in report_list %}
+        <tr>
+        <td> <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></td>
+        <td>{{reports.id}}</td>
+        <td>{{reports.keyword}}</td>
+        <td>{{reports.doctors_name}}</td>
+        <td>{{reports.hospital_address}}</td>
+        <td>{{reports.hospital_name}}</td>    
+        <td>{{reports.hospital_phoneno}}</td>
+        <td>{{reports.doctors_phoneno}}</td>
+        <td>{{reports.doctors_option}}</td>
+        <td>{{reports.symptoms}}</td>
+        <td>{{reports.date_of_visit}}</td>
+        <td> <a href="{% url 'editmedicalreport' medicalconditionid medicalcondtionname reports.id%}" class="btn btn-primary">
+          edit report 
+        </a>
+        </td>
+      <td>
+        <a href="{% url 'viewmedicalreport' reports.id medicalcondtionname %}" class="btn btn-primary">
+          view report
+        </a>
+      </td>
+      </tr>
+        {% endfor %}
       
-      edit report 
-    </a>
-    <a href="{% url 'viewmedicalreport' reports.id medicalcondtionname %}" class="btn btn-primary">
-      view report
-    </a>
-    <div>==================================</div> 
-    {% endfor %}
+    </table>
     <div class="pagination">
       <span class="step-links">
           {% if report_list.has_previous %}

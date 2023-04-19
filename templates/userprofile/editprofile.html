@@ -24,7 +24,7 @@
   </div>
 
   <div class="container-fluid formcontainer">
-    <form action="{% url 'editprofile' %}" method="post" >
+    <form action="{% url 'editprofile' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
  
         <div class="mb-3">

@@ -9,7 +9,7 @@ class UserGenralProfile(models.Model):
     last_name = models.CharField(max_length=255,blank=True, null=True)
     dob = models.DateField(null=True)
     address = models.TextField(null=True)
-    profile_img = models.ImageField(upload_to='images/',null=True)
+    profile_img = models.ImageField(upload_to='profileImage',null=True)
     phone_number = models.IntegerField(blank=True, null=True)
 
     def __str__(self):

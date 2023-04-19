@@ -4,6 +4,7 @@ import json
 from django.http import HttpResponse,HttpResponseRedirect
 from django.http import JsonResponse
 from django.contrib.auth.models import User
+from authentication.models import Profilecheck
 from django.conf import settings
 from django.core.mail import send_mail
 import email_validator
@@ -61,6 +62,8 @@ class RegistrationView(View):
                 user = User.objects.create_user(username=username,email=email,password=password)
                 user.is_active = False  
                 user.save()
+                profile_ckeck_obj = Profilecheck.objects.create(user=user)
+                profile_ckeck_obj.save()
                 link = genratelink(user_pk= user.pk)
                 # verifyemail(email,link)
                 print("==========",link)
@@ -91,14 +94,20 @@ class LoginView(View):
         if(username and password):
             try:
                 user = User.objects.get( username=username )
+                print(user)
+                profile_check_obj = Profilecheck.objects.get( user=user )
+                print(user,profile_check_obj)
                 if user == None and check_password(password,user.password):
                     messages.error(request,"Either the email or password is wrong")
                     return render(request,'authentication/login.html')
                 else:
                     if check_password(password,user.password):
-                        if user.is_active:
+                        if user.is_active and profile_check_obj.profile_exist:
                             login(request,user)
                             return redirect('/dashboard/dashboard')
+                        elif user.is_active and not profile_check_obj.profile_exist:
+                            login(request,user)
+                            return redirect('/profile/addprofile')
                         else:
                             messages.error(request,"The account is not verified")
                             return render(request,'authentication/login.html')
@@ -106,6 +115,7 @@ class LoginView(View):
                         messages.error(request,"Either the email or password is wrong")
                         return render(request,'authentication/login.html')
             except Exception as e:
+                print(e)
                 messages.error(request,"something went wrong please try again") 
                 return render(request,'authentication/login.html')
         else:

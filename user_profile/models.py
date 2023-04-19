@@ -16,6 +16,16 @@ class UserGenralProfile(models.Model):
         return f'{self.first_name}__{self.user}'
     
 
+class UserMedicalProfile(models.Model):
+    user = models.OneToOneField(to=User,on_delete=models.SET_NULL, null=True)
+    weight = models.IntegerField(blank=True, null=True)
+    height = models.IntegerField(blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.first_name}__{self.user}'
+    
+    
+
     # wieght 
     # height
     # blood gropu

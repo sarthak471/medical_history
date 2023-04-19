@@ -1,8 +1,19 @@
 {% extends 'userprofile/base.html' %}
 {% load static %}
 
-{% block content %}
 
+
+
+{% block content %}
+<div class="container-fluid"> 
+  <div class="row">
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div class="container-fluid" >
+        {% include "components/sidebar.html" %}
+      </div>
+      <div class="container-fluid" >
+        {% include 'components/messages.html' %}
+      </div>
 <div class="container-fluid outercontainer" style=" margin: 2px solid red;">
     <div class="col-md-5">
    
@@ -14,16 +25,30 @@
            </nav>
        </div>
    </div>
-   <div class="col-md-3">
-      <a href="{% url 'editprofile' %}">
-        Edit profile
-      </a>
-   </div>
 </div>
 
   <div class="container-fluid outercontainer">
-    <h1>This is the pdddddddddddrofmmile page</h1>  
+    <h1>This is the profile page</h1>  
   </div>
+    <h2>user info</h2>
+    {{ user.first_name }}
+    {{ user.last_name }}
+    {{ user.dob }}
+    {{ user.address }}
+    {{ user.phone_number }}
+    <div style="width: 20px; height: 20px; " >
+      <img src="{{ user.profile_img.url }}" class="img-responsive" style="width: 100%; float: left; margin-right: 10px;" />
+    </div>
+    <h2>medical info</h2>
+    {{ med.weight }}
+    {{ med.height }}
+    <a class="btn btn-primary" href="{% url 'editprofile' %}">
+      Edit profile
+    </a>
+
+</main>
+</div>
+</div>
 
   <link href="{% static 'css/dashboard/dashbaord.css' %}" rel="stylesheet">
   <!-- <script src="{% static 'js/dashboard/dashboard.js' %}"></script> -->
